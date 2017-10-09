@@ -1,34 +1,37 @@
 'use strict'
 var l = console.log;
 
-/*
-head [x] = x
-tail [x] = []
-init [x] = []
-last [x] = x
-*/
+Array.prototype.groupBy = function(fn) {
+	var resultObj = {}
 
+	if(!fn){
 
+		this.forEach(num => {
+			if(!resultObj[num]) resultObj[num] = []
 
-function head(arr){
-	return arr[0]
+			resultObj[num].push(num)	
+		})	
+
+	} else {
+
+		this.forEach(num => {
+			var result = fn(num);
+
+			if(!resultObj[result]) resultObj[result] = []
+
+			resultObj[result].push(num)	
+		})
+
+	}
+
+	return resultObj;
 }
 
-function tail(arr){
-	return arr.slice(1)
-}
-
-function init(arr){
-	return arr.slice(0, -1)
-}
-
-function last(arr){
-	return arr[arr.length-1]
-}
 
 
+l([1,2,3,2,4,1,5,1,6].groupBy());
 
-l(head([5,1]))
-l(tail([1]))
-l(init([1,5,7,9]))
-l(last([7,2]))
+
+l([1,2,3,2,4,1,5,1,6].groupBy(
+    function(_) {return _ % 3;}
+))
