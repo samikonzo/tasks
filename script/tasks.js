@@ -1,27 +1,20 @@
 'use strict'
 var l = console.log;
 
-Number.prototype.add = function(n) {
-	return this + n
-};
+function sum(a,b){
+	if(arguments.length < 2){
 
-Number.prototype.subtract = function(n) {
-	return this - n
-};
+		var savedArgs = [].slice.call(arguments);
+		return function(){
+			var concatedArgs = savedArgs.concat([].slice.call(arguments))			
+			return sum.apply(null, concatedArgs);
+		}
 
-Number.prototype.multiply = function(n) {
-	return this * n
-};
-Number.prototype.divide = function(n) {
-	return this / n
-};
-Number.prototype.square = function() {
-	return this * this
-};
+	} else {
+		return a + b
+	}
+}
 
-l((0).add(2))
-l((5).subtract(1))
-l((3).multiply(2))
-l((10).divide(5))
-l((5).square())
-l((3).add(5).multiply(2))
+
+l(sum(2,3))
+l(sum(3)()()()(2))
