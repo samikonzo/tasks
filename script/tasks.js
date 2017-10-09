@@ -1,20 +1,34 @@
 'use strict'
 var l = console.log;
 
-function sum(a,b){
-	if(arguments.length < 2){
+/*
+head [x] = x
+tail [x] = []
+init [x] = []
+last [x] = x
+*/
 
-		var savedArgs = [].slice.call(arguments);
-		return function(){
-			var concatedArgs = savedArgs.concat([].slice.call(arguments))			
-			return sum.apply(null, concatedArgs);
-		}
 
-	} else {
-		return a + b
-	}
+
+function head(arr){
+	return arr[0]
+}
+
+function tail(arr){
+	return arr.slice(1)
+}
+
+function init(arr){
+	return arr.slice(0, -1)
+}
+
+function last(arr){
+	return arr[arr.length-1]
 }
 
 
-l(sum(2,3))
-l(sum(3)()()()(2))
+
+l(head([5,1]))
+l(tail([1]))
+l(init([1,5,7,9]))
+l(last([7,2]))
